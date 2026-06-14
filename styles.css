@@ -1,0 +1,1625 @@
+:root {
+  /* Frozen palette */
+  --ink-900: #02060a;
+  --ink-800: #07111c;
+  --ink-700: #0e2742;
+  --ice-bright: #69d2ff;
+  --ice-pale: #cff4ff;
+  --white: #ffffff;
+
+  --frost-edge: rgba(207, 244, 255, 0.34);
+  --hairline: rgba(160, 190, 215, 0.16);
+  --panel-shadow: 0 34px 80px rgba(0, 0, 0, 0.55);
+
+  --font-display: "Teko", "Oxanium", sans-serif;
+  --font-label: "Oxanium", "Teko", sans-serif;
+  --font-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  --max-width: 1200px;
+  --header-height: 78px;
+
+  --icicles: url("icicles.svg");
+  --ice-bg: url("media/background.png");
+  --cut: polygon(14px 0, 100% 0, 100% calc(100% - 14px), calc(100% - 14px) 100%, 0 100%, 0 14px);
+  /* crystalline faceted cut for buttons — every corner machined, asymmetric like cut ice */
+  --btn-cut: polygon(15px 0, calc(100% - 8px) 0, 100% 9px, 100% calc(100% - 15px), calc(100% - 15px) 100%, 8px 100%, 0 calc(100% - 9px), 0 15px);
+  --frost-noise: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f)'/%3E%3C/svg%3E");
+  --crack: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 52'%3E%3Cg fill='none' stroke='%2369D2FF' stroke-opacity='0.65' stroke-width='0.8' stroke-linecap='round'%3E%3Cpath d='M12 0 L18 16 L14 30 L20 44'/%3E%3Cpath d='M18 16 L30 20'/%3E%3Cpath d='M60 0 L66 22 L62 38'/%3E%3Cpath d='M66 22 L80 26'/%3E%3Cpath d='M100 2 L96 24 L106 40'/%3E%3C/g%3E%3C/svg%3E");
+
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background:
+    /* deep lake water — the base tone the frozen sections sit within */
+    linear-gradient(180deg, #06121f 0%, #03090f 56%, #02070c 100%);
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  color: var(--white);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.65;
+  letter-spacing: 0.01em;
+}
+
+/* global stadium glow up high — unifies the frozen world across every section */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  background:
+    radial-gradient(58% 46% at 15% -2%, rgba(150, 214, 255, 0.1), transparent 60%),
+    radial-gradient(52% 42% at 87% -4%, rgba(207, 244, 255, 0.08), transparent 58%);
+}
+
+/* faint cold haze settling over the surface */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(120% 80% at 50% 8%, rgba(151, 209, 245, 0.04), transparent 60%);
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+button {
+  color: inherit;
+}
+
+address {
+  font-style: normal;
+}
+
+.skip-link {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  z-index: 1000;
+  transform: translateY(-160%);
+  background: var(--white);
+  color: var(--ink-900);
+  padding: 0.65rem 0.9rem;
+  font-family: var(--font-label);
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+/* ---------------- Header: frozen steel bar with icicles ---------------- */
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  min-height: var(--header-height);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 0.6rem clamp(1rem, 4vw, 3rem);
+  background:
+    linear-gradient(180deg, rgba(207, 244, 255, 0.16), rgba(207, 244, 255, 0) 3px),
+    linear-gradient(180deg, rgba(9, 20, 32, 0.94), rgba(6, 14, 23, 0.66));
+  border-bottom: 1px solid rgba(105, 210, 255, 0.32);
+  box-shadow: inset 0 -1px 0 rgba(105, 210, 255, 0.4), 0 12px 34px rgba(0, 0, 0, 0.5);
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+}
+
+/* realistic icicles hanging from the nav edge */
+.site-header::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%;
+  height: 58px;
+  background: var(--icicles) repeat-x top center;
+  background-size: auto 100%;
+  opacity: 0.85;
+  filter: drop-shadow(0 4px 3px rgba(0, 0, 0, 0.35));
+  pointer-events: none;
+}
+
+.brand-mark {
+  position: relative;
+  z-index: 1;
+  width: clamp(170px, 18vw, 248px);
+  display: inline-flex;
+  align-items: center;
+}
+
+.brand-mark img {
+  width: 100%;
+  max-height: 3rem;
+  object-fit: contain;
+  object-position: left center;
+  /* the logo PNG has ~25% empty transparent padding baked into its bottom edge,
+     which makes the artwork sit visually high; nudge it down to optically center */
+  transform: translateY(6px);
+}
+
+.site-nav {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: clamp(0.35rem, 2vw, 1.2rem);
+}
+
+.site-nav a {
+  position: relative;
+  display: inline-flex;
+  min-height: 42px;
+  align-items: center;
+  padding: 0.45rem 0.72rem;
+  color: rgba(245, 251, 255, 0.78);
+  font-family: var(--font-label);
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.site-nav a::after {
+  content: "";
+  position: absolute;
+  left: 0.72rem;
+  right: 0.72rem;
+  bottom: 4px;
+  height: 2px;
+  transform: scaleX(0);
+  transform-origin: left;
+  background: linear-gradient(90deg, var(--ice-pale), var(--ice-bright));
+  box-shadow: 0 0 10px rgba(105, 210, 255, 0.7);
+  transition: transform 160ms ease;
+}
+
+.site-nav a:hover,
+.site-nav a:focus-visible,
+.site-nav a[aria-current="page"] {
+  color: var(--white);
+}
+
+.site-nav a:hover::after,
+.site-nav a:focus-visible::after,
+.site-nav a[aria-current="page"]::after {
+  transform: scaleX(1);
+}
+
+/* Mobile menu toggle — a miniature of the secondary frozen-steel CTA */
+.nav-toggle {
+  position: relative;
+  isolation: isolate;
+  z-index: 1;
+  display: none;
+  width: 52px;
+  height: 46px;
+  overflow: hidden;
+  border: 0;
+  cursor: pointer;
+  /* same machined steel material as .ice-button.ghost */
+  background:
+    linear-gradient(118deg, transparent 0 45%, rgba(207, 244, 255, 0.12) 50%, transparent 55%),
+    repeating-linear-gradient(90deg, rgba(207, 244, 255, 0.035) 0 1px, transparent 1px 4px),
+    linear-gradient(180deg, #21384c 0%, #14283a 44%, #0b1c26 100%);
+  /* four-corner machined chamfer, matching --btn-cut shape language */
+  clip-path: polygon(11px 0, calc(100% - 6px) 0, 100% 7px, 100% calc(100% - 11px), calc(100% - 11px) 100%, 6px 100%, 0 calc(100% - 7px), 0 11px);
+  box-shadow:
+    inset 0 1px 0 rgba(207, 244, 255, 0.4),
+    inset 0 -2px 1px rgba(0, 0, 0, 0.42),
+    inset 0 0 0 1px rgba(105, 210, 255, 0.16);
+  transition: transform 200ms cubic-bezier(0.2, 0.7, 0.25, 1);
+}
+
+/* crystalline facet planes + edge frost — faint at rest, intensify on hover */
+.nav-toggle::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    linear-gradient(125deg, transparent 0 29%, rgba(255, 255, 255, 0.12) 33%, transparent 37%),
+    linear-gradient(125deg, transparent 0 60%, rgba(255, 255, 255, 0.08) 64%, transparent 68%);
+  box-shadow: inset 0 0 12px rgba(207, 244, 255, 0);
+  opacity: 0.5;
+  transition: opacity 360ms ease, box-shadow 360ms ease;
+}
+
+/* moving cold reflection — light refracting through frozen steel */
+.nav-toggle::after {
+  content: "";
+  position: absolute;
+  top: -25%;
+  bottom: -25%;
+  left: 0;
+  width: 52%;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(
+    105deg,
+    transparent 36%,
+    rgba(226, 246, 255, 0.4) 47%,
+    rgba(255, 255, 255, 0.58) 50%,
+    rgba(226, 246, 255, 0.4) 53%,
+    transparent 64%
+  );
+  transform: translateX(-190%) skewX(-15deg);
+  transition: transform 720ms cubic-bezier(0.3, 0.6, 0.2, 1);
+}
+
+/* heavy industrial bars — machined frost slabs, beveled, no neon glow */
+.nav-toggle span {
+  position: absolute;
+  left: 14px;
+  display: block;
+  width: 24px;
+  height: 3px;
+  margin: 0;
+  background: linear-gradient(180deg, rgba(245, 251, 255, 0.96), rgba(176, 202, 220, 0.82));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.65),
+    0 1px 1px rgba(0, 0, 0, 0.5);
+  transition: transform 200ms cubic-bezier(0.2, 0.7, 0.25, 1), top 200ms ease, width 200ms ease;
+}
+
+.nav-toggle span:first-child {
+  top: 18px;
+}
+
+.nav-toggle span:last-child {
+  top: 26px;
+}
+
+/* hover — lift, reflection sweep, frost intensifies (no neon) */
+.nav-toggle:hover,
+.nav-toggle:focus-visible {
+  transform: translateY(-2px);
+}
+
+.nav-toggle:hover::after,
+.nav-toggle:focus-visible::after,
+.nav-toggle[aria-expanded="true"]::after {
+  transform: translateX(320%) skewX(-15deg);
+}
+
+.nav-toggle:hover::before,
+.nav-toggle:focus-visible::before {
+  opacity: 1;
+  box-shadow: inset 0 0 16px rgba(207, 244, 255, 0.45);
+}
+
+/* open state — bars cross into a machined X */
+.nav-toggle[aria-expanded="true"] span {
+  top: 21.5px;
+  width: 24px;
+}
+
+.nav-toggle[aria-expanded="true"] span:first-child {
+  transform: rotate(42deg);
+}
+
+.nav-toggle[aria-expanded="true"] span:last-child {
+  transform: rotate(-42deg);
+}
+
+/* ---------------- Layout primitives ---------------- */
+.section-shell {
+  width: min(calc(100% - 2rem), var(--max-width));
+  margin: 0 auto;
+}
+
+.section-band {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  align-items: center;
+  min-height: 100svh;
+  padding: clamp(4.5rem, 8vh, 6.5rem) 0;
+  overflow: hidden;
+}
+
+/* Key Features is the one section allowed to run taller than a single screen */
+.feature-section,
+.product-feature-section {
+  display: block;
+  min-height: 0;
+  padding: clamp(5rem, 9vw, 8rem) 0;
+  /* content chamber — a different area of the ice than its neighbours */
+  background:
+    linear-gradient(180deg, rgba(4, 10, 18, 0.6), rgba(2, 7, 12, 0.66)),
+    var(--ice-bg) right 58% / cover no-repeat;
+}
+
+.section-band > .section-shell {
+  position: relative;
+  z-index: 1;
+}
+
+/* SECTION SEAM: a thin frosted seam keeps sections distinct without a repeating template */
+.section-band::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  z-index: 0;
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent, rgba(105, 210, 255, 0.4) 16%, rgba(207, 244, 255, 0.55) 50%, rgba(105, 210, 255, 0.4) 84%, transparent);
+}
+
+/* ===== ICE MATERIAL SYSTEM — one frozen world, varied per section ===== */
+/* Content chambers: the ice reads at ~40–60% behind a calm darkened field */
+.frost-band {
+  background:
+    linear-gradient(180deg, rgba(4, 10, 18, 0.58), rgba(2, 7, 12, 0.64)),
+    radial-gradient(95% 120% at 50% 0%, rgba(14, 39, 66, 0.32), transparent 62%),
+    var(--ice-bg) center 30% / cover no-repeat;
+}
+
+/* Product chambers: the ice recedes to ~20–40% so the photography leads */
+.product-preview-section,
+.product-preview-section.frost-band {
+  background:
+    linear-gradient(180deg, rgba(3, 8, 15, 0.8), rgba(2, 6, 11, 0.84)),
+    var(--ice-bg) right 32% / cover no-repeat;
+}
+
+/* Contact chamber: more frozen atmosphere shows through, still readable */
+.contact-section,
+.contact-section.frost-band {
+  background:
+    linear-gradient(180deg, rgba(4, 10, 18, 0.5), rgba(2, 7, 12, 0.55)),
+    radial-gradient(90% 80% at 12% 0%, rgba(105, 210, 255, 0.08), transparent 55%),
+    var(--ice-bg) center 50% / cover no-repeat;
+}
+
+/* ---------------- Hero: cinematic frozen game-day fortress ---------------- */
+.hero {
+  position: relative;
+  min-height: 100svh;
+  display: grid;
+  align-items: end;
+  padding: calc(var(--header-height) + 3rem) 0 clamp(2.5rem, 6vh, 4.5rem);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.hero-media {
+  position: absolute;
+  inset: 0;
+  z-index: -3;
+}
+
+.hero-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 46%;
+  filter: saturate(0.9) contrast(1.1) brightness(0.8);
+}
+
+/* cold blue night grade over warm daytime photography */
+.hero-media::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(180deg, rgba(12, 44, 78, 0.42), rgba(3, 12, 24, 0.5));
+  mix-blend-mode: multiply;
+}
+
+/* narrow left scrim for text legibility — keeps the trailer bright & dominant */
+.hero-media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background:
+    linear-gradient(90deg, rgba(2, 6, 10, 0.94) 0%, rgba(2, 6, 10, 0.72) 24%, rgba(2, 6, 10, 0.18) 52%, rgba(2, 6, 10, 0) 70%),
+    radial-gradient(125% 95% at 66% 30%, transparent 40%, rgba(2, 6, 10, 0.5) 100%),
+    linear-gradient(180deg, rgba(2, 6, 10, 0.28) 0%, transparent 26%, rgba(2, 6, 10, 0.82) 100%);
+}
+
+/* blue stadium floodlights + frozen haze */
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  background:
+    radial-gradient(44% 66% at 14% -12%, rgba(105, 210, 255, 0.3), transparent 60%),
+    radial-gradient(40% 60% at 86% -14%, rgba(207, 244, 255, 0.2), transparent 60%),
+    radial-gradient(120% 50% at 50% 116%, rgba(105, 210, 255, 0.1), transparent 60%);
+}
+
+/* icicles are reserved for the navigation and footer only */
+
+/* ---- Cinematic 40 / 60 split hero (home) ---- */
+.hero-split {
+  align-items: center;
+  background:
+    /* stadium-light blooms over the frozen surface */
+    radial-gradient(46% 56% at 16% -6%, rgba(150, 214, 255, 0.24), transparent 60%),
+    radial-gradient(48% 60% at 86% 110%, rgba(105, 210, 255, 0.14), transparent 60%),
+    /* keep the headline side readable */
+    linear-gradient(100deg, rgba(2, 6, 10, 0.78) 0%, rgba(2, 6, 10, 0.34) 32%, transparent 58%),
+    /* edge vignette */
+    radial-gradient(130% 110% at 50% 40%, transparent 54%, rgba(2, 6, 10, 0.5) 100%),
+    /* the frozen ice at full strength */
+    var(--ice-bg) center 16% / cover no-repeat;
+}
+
+.hero-grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 2fr 3fr;
+  gap: clamp(1.5rem, 4vw, 3.5rem);
+  align-items: center;
+}
+
+.hero-grid .hero-content {
+  max-width: none;
+}
+
+.hero-split h1 {
+  font-size: clamp(3.6rem, 8vw, 7rem);
+  letter-spacing: 0.02em;
+}
+
+.hero-product {
+  position: relative;
+  margin: 0;
+  min-height: clamp(320px, 56vh, 600px);
+  overflow: hidden;
+  background: var(--ink-900);
+  border: 1px solid var(--frost-edge);
+  box-shadow:
+    /* frozen edge treatment — a crisp frost rim around the photo */
+    inset 0 0 0 1px rgba(207, 244, 255, 0.22),
+    inset 0 1px 0 rgba(245, 251, 255, 0.24),
+    /* soft blue rim lighting hugging the trailer from the edges inward */
+    inset 0 0 64px rgba(105, 210, 255, 0.2),
+    /* gentle interior depth so the trailer sits within the ice */
+    inset 0 0 90px rgba(2, 6, 10, 0.5),
+    /* cold depth shadow + outer blue environmental glow */
+    0 30px 80px rgba(0, 0, 0, 0.6),
+    0 0 120px -20px rgba(105, 210, 255, 0.62);
+}
+
+.hero-product img {
+  position: absolute;
+  inset: 0;
+}
+
+/* atmosphere layered over the trailer so it feels embedded in the frozen world:
+   stadium light from above, through-ice sheen, frost at the boundaries, base fog,
+   and a rim vignette that dissolves the rectangular edge. */
+.hero-product::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    /* cold stadium-light illumination pouring from above */
+    radial-gradient(82% 62% at 50% -20%, rgba(207, 244, 255, 0.3), rgba(150, 214, 255, 0.1) 42%, transparent 66%),
+    /* atmospheric light diffusion / reflection passing through ice */
+    linear-gradient(118deg, transparent 0 39%, rgba(226, 246, 255, 0.09) 47%, transparent 55%),
+    /* faint frost accumulation in the corners */
+    radial-gradient(58% 46% at 0% 0%, rgba(207, 244, 255, 0.24), transparent 52%),
+    radial-gradient(58% 46% at 100% 0%, rgba(190, 233, 255, 0.18), transparent 52%),
+    radial-gradient(56% 42% at 0% 100%, rgba(207, 244, 255, 0.18), transparent 54%),
+    radial-gradient(56% 42% at 100% 100%, rgba(190, 233, 255, 0.16), transparent 54%),
+    /* base fog where the trailer meets the frozen ground */
+    radial-gradient(92% 42% at 50% 118%, rgba(207, 244, 255, 0.28), transparent 60%),
+    /* cold rim vignette so the photo melts into the environment */
+    radial-gradient(126% 102% at 50% 42%, transparent 56%, rgba(2, 6, 10, 0.64) 100%);
+}
+
+.hero-home .hero-media img {
+  object-position: center 44%;
+}
+
+.hero-products .hero-media img {
+  object-position: center 52%;
+}
+
+.hero-contact .hero-media img {
+  object-position: center 40%;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 600px;
+}
+
+/* products & contact heroes: copy left-aligned to the standard container edge */
+.product-hero-copy {
+  max-width: none;
+}
+
+.product-hero-copy .hero-copy {
+  max-width: 560px;
+}
+
+/* ---------------- Typography (supporting, not overpowering) ---------------- */
+.eyebrow {
+  margin: 0 0 0.7rem;
+  color: var(--ice-bright);
+  font-family: var(--font-label);
+  font-size: 0.86rem;
+  font-weight: 700;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 0.9;
+  letter-spacing: 0.015em;
+  text-transform: uppercase;
+}
+
+h1 {
+  max-width: 16ch;
+  color: var(--white);
+  font-size: 4.4rem;
+  text-shadow: 0 2px 30px rgba(2, 6, 10, 0.75);
+}
+
+h2 {
+  color: var(--white);
+  font-size: 3.4rem;
+}
+
+h3 {
+  color: var(--white);
+  font-size: 2.15rem;
+}
+
+p {
+  color: rgba(238, 248, 255, 0.8);
+}
+
+.hero-kicker {
+  margin: 0.7rem 0 0;
+  color: var(--ice-pale);
+  font-family: var(--font-label);
+  font-size: 1.3rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.hero-copy {
+  max-width: 540px;
+  margin: 1rem 0 0;
+  font-size: 1.04rem;
+}
+
+.action-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+  margin-top: 1.9rem;
+}
+
+/* ---------------- Buttons: machined frozen steel & ice ---------------- */
+.ice-button,
+.ice-link {
+  position: relative;
+  isolation: isolate;
+  display: inline-flex;
+  min-height: 52px;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  padding: 0.9rem 1.6rem;
+  font-family: var(--font-label);
+  font-size: 0.98rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  clip-path: var(--btn-cut);
+  transition: transform 200ms cubic-bezier(0.2, 0.7, 0.25, 1);
+}
+
+/* crystalline facet planes + edge frost — faint at rest, intensify on hover */
+.ice-button::before,
+.ice-link::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    linear-gradient(125deg, transparent 0 29%, rgba(255, 255, 255, 0.12) 33%, transparent 37%),
+    linear-gradient(125deg, transparent 0 60%, rgba(255, 255, 255, 0.08) 64%, transparent 68%);
+  box-shadow: inset 0 0 12px rgba(207, 244, 255, 0);
+  opacity: 0.5;
+  transition: opacity 360ms ease, box-shadow 360ms ease;
+}
+
+/* moving cold reflection — light refracting through ice */
+.ice-button::after,
+.ice-link::after {
+  content: "";
+  position: absolute;
+  top: -25%;
+  bottom: -25%;
+  left: 0;
+  width: 46%;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(
+    105deg,
+    transparent 36%,
+    rgba(226, 246, 255, 0.45) 47%,
+    rgba(255, 255, 255, 0.65) 50%,
+    rgba(226, 246, 255, 0.45) 53%,
+    transparent 64%
+  );
+  transform: translateX(-190%) skewX(-15deg);
+  transition: transform 720ms cubic-bezier(0.3, 0.6, 0.2, 1);
+}
+
+.ice-button:hover,
+.ice-button:focus-visible,
+.ice-link:hover,
+.ice-link:focus-visible {
+  transform: translateY(-2px);
+}
+
+.ice-button:hover::after,
+.ice-button:focus-visible::after,
+.ice-link:hover::after,
+.ice-link:focus-visible::after {
+  transform: translateX(320%) skewX(-15deg);
+}
+
+/* edge frost intensifies + facets brighten on hover */
+.ice-button:hover::before,
+.ice-button:focus-visible::before,
+.ice-link:hover::before,
+.ice-link:focus-visible::before {
+  opacity: 1;
+  box-shadow: inset 0 0 16px rgba(207, 244, 255, 0.5);
+}
+
+/* PRIMARY — machined frozen metal, desaturated ice, milled striations + bevel */
+.ice-button.primary {
+  background:
+    linear-gradient(118deg, transparent 0 45%, rgba(255, 255, 255, 0.22) 50%, transparent 55%),
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.05) 0 1px, transparent 1px 4px),
+    linear-gradient(180deg, #e8f3f8 0%, #c2dbe7 36%, #9bc0d2 74%, #87afc2 100%);
+  color: #06141d;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.85),
+    inset 0 -2px 1px rgba(6, 28, 44, 0.34),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+}
+
+/* SECONDARY — dark frozen steel, same machined bevel, no glass, no grain */
+.ice-button.ghost,
+.ice-link {
+  background:
+    linear-gradient(118deg, transparent 0 45%, rgba(207, 244, 255, 0.12) 50%, transparent 55%),
+    repeating-linear-gradient(90deg, rgba(207, 244, 255, 0.035) 0 1px, transparent 1px 4px),
+    linear-gradient(180deg, #21384c 0%, #14283a 44%, #0b1c26 100%);
+  color: var(--white);
+  box-shadow:
+    inset 0 1px 0 rgba(207, 244, 255, 0.4),
+    inset 0 -2px 1px rgba(0, 0, 0, 0.42),
+    inset 0 0 0 1px rgba(105, 210, 255, 0.16);
+}
+
+/* The hero secondary action should feel quieter than the primary control. */
+.hero .ice-button.ghost {
+  background:
+    linear-gradient(180deg, rgba(207, 244, 255, 0.1), transparent 24%),
+    linear-gradient(180deg, rgba(10, 24, 36, 0.72), rgba(4, 12, 19, 0.9));
+  color: rgba(245, 251, 255, 0.86);
+  box-shadow:
+    inset 0 1px 0 rgba(207, 244, 255, 0.22),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.5),
+    inset 0 0 0 1px rgba(105, 210, 255, 0.1);
+}
+
+.hero .ice-button.ghost::before {
+  background: linear-gradient(125deg, transparent 0 48%, rgba(207, 244, 255, 0.07) 52%, transparent 58%);
+  opacity: 0.35;
+}
+
+.hero .ice-button.ghost::after {
+  background: linear-gradient(105deg, transparent 40%, rgba(226, 246, 255, 0.24) 50%, transparent 60%);
+}
+
+.hero .ice-button.ghost:hover,
+.hero .ice-button.ghost:focus-visible {
+  color: var(--white);
+}
+
+.hero .ice-button.ghost:hover::before,
+.hero .ice-button.ghost:focus-visible::before {
+  opacity: 0.72;
+  box-shadow: inset 0 0 12px rgba(207, 244, 255, 0.24);
+}
+
+/* ---------------- Frozen image frames ---------------- */
+.feature-media,
+.angled-image,
+.model-panel,
+.product-image-slab {
+  position: relative;
+  margin: 0;
+  overflow: hidden;
+  background: var(--ink-900);
+  border: 1px solid var(--hairline);
+  border-top-color: var(--frost-edge);
+  box-shadow: inset 0 1px 0 rgba(245, 251, 255, 0.12), var(--panel-shadow), 0 0 70px -26px rgba(105, 210, 255, 0.55);
+}
+
+.feature-media img,
+.angled-image img,
+.model-panel img,
+.product-image-slab img,
+.hero-product img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(0.96) contrast(1.05) brightness(0.97);
+}
+
+/* frost accumulating in corners + light refracting through ice */
+.feature-media::after,
+.angled-image::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(72% 55% at 0% 0%, rgba(207, 244, 255, 0.16), transparent 55%),
+    radial-gradient(72% 55% at 100% 100%, rgba(105, 210, 255, 0.1), transparent 55%);
+}
+
+/* subtle blue edge-lighting riding the border of every product image */
+.feature-media::after,
+.angled-image::after,
+.model-panel::after,
+.product-image-slab::after {
+  box-shadow: inset 0 0 0 1px rgba(105, 210, 255, 0.16), inset 0 0 30px rgba(105, 210, 255, 0.12);
+}
+
+/* crystalline ice-shard accent in the top corner of feature media */
+.feature-media::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 92px;
+  height: 92px;
+  z-index: 1;
+  background: linear-gradient(135deg, rgba(207, 244, 255, 0.5), rgba(105, 210, 255, 0.06) 60%, transparent 70%);
+  clip-path: polygon(0 0, 100% 0, 0 100%);
+  pointer-events: none;
+}
+
+/* ---------------- Home: Ice House philosophy ---------------- */
+.split-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.06fr) minmax(300px, 0.84fr);
+  gap: clamp(1.5rem, 5vw, 4rem);
+  align-items: center;
+}
+
+.feature-photo-large {
+  aspect-ratio: 1.3;
+}
+
+.copy-block p:not(.eyebrow) {
+  max-width: 560px;
+  margin: 1.1rem 0 0;
+  font-size: 1.06rem;
+}
+
+.equipment-strip {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  margin: 2rem 0 0;
+  background: var(--hairline);
+  border: 1px solid var(--hairline);
+  border-top-color: var(--frost-edge);
+}
+
+.equipment-strip div {
+  min-height: 108px;
+  padding: 1rem;
+  background: linear-gradient(180deg, rgba(14, 39, 66, 0.45), rgba(7, 17, 28, 0.6));
+}
+
+.equipment-strip dt {
+  color: var(--ice-bright);
+  font-family: var(--font-display);
+  font-size: 1.7rem;
+  font-weight: 600;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.equipment-strip dd {
+  margin: 0.35rem 0 0;
+  color: rgba(238, 248, 255, 0.74);
+  font-size: 0.95rem;
+}
+
+.section-heading {
+  max-width: 760px;
+  margin-bottom: clamp(2.5rem, 5vw, 4rem);
+}
+
+.narrow-heading {
+  max-width: 700px;
+}
+
+/* ---------------- Feature stack: dedicated chambers ---------------- */
+.feature-stack {
+  display: grid;
+  gap: clamp(3rem, 6vw, 6rem);
+}
+
+.feature-row {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1.14fr) minmax(0, 0.86fr);
+  gap: clamp(1.5rem, 4vw, 3.75rem);
+  align-items: center;
+}
+
+.feature-row.reverse .feature-media {
+  order: 2;
+}
+
+.feature-media {
+  aspect-ratio: 4 / 3;
+}
+
+/* per-feature environment lighting */
+.feat-entertainment .feature-media {
+  box-shadow: inset 0 1px 0 rgba(245, 251, 255, 0.12), var(--panel-shadow), 0 0 58px -10px rgba(105, 210, 255, 0.55);
+}
+
+.feat-entertainment .feature-media::after {
+  background:
+    radial-gradient(64% 52% at 50% 64%, rgba(105, 210, 255, 0.26), transparent 62%),
+    radial-gradient(70% 55% at 0% 0%, rgba(207, 244, 255, 0.16), transparent 55%);
+}
+
+.feat-comfort .feature-media {
+  box-shadow: inset 0 1px 0 rgba(245, 251, 255, 0.12), var(--panel-shadow), 0 0 58px -10px rgba(255, 176, 102, 0.42);
+}
+
+.feat-comfort .feature-media::after {
+  background:
+    radial-gradient(60% 60% at 70% 78%, rgba(255, 170, 92, 0.24), transparent 60%),
+    radial-gradient(70% 55% at 0% 0%, rgba(207, 244, 255, 0.18), transparent 55%);
+}
+
+.feat-offgrid .feature-media {
+  box-shadow: inset 0 1px 0 rgba(245, 251, 255, 0.12), var(--panel-shadow), 0 0 58px -12px rgba(116, 196, 255, 0.5);
+}
+
+.feat-offgrid .feature-media::after {
+  background:
+    radial-gradient(66% 54% at 50% 50%, rgba(116, 196, 255, 0.2), transparent 60%),
+    radial-gradient(70% 55% at 100% 100%, rgba(105, 210, 255, 0.14), transparent 55%);
+}
+
+.feature-index {
+  margin: 0 0 0.45rem;
+  color: var(--ice-bright);
+  font-family: var(--font-display);
+  font-size: 2.4rem;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.06em;
+}
+
+.feat-comfort .feature-index {
+  color: #ffce9e;
+}
+
+.feat-offgrid .feature-index {
+  color: #bfe9ff;
+}
+
+.feature-text h3 {
+  margin-bottom: 0.85rem;
+}
+
+.feature-text > p {
+  margin: 0 0 1.2rem;
+  max-width: 52ch;
+  color: rgba(238, 248, 255, 0.82);
+  font-size: 1.05rem;
+}
+
+.feature-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.6rem;
+}
+
+.feature-list li {
+  position: relative;
+  padding-left: 1.4rem;
+  font-family: var(--font-label);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: rgba(238, 248, 255, 0.9);
+}
+
+/* sharp ice-crystal marker */
+.feature-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 0.6rem;
+  height: 0.6rem;
+  background: linear-gradient(135deg, var(--ice-pale), var(--ice-bright));
+  box-shadow: 0 0 8px rgba(105, 210, 255, 0.55);
+  clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
+}
+
+.section-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: clamp(2.5rem, 5vw, 4rem);
+}
+
+/* ---------------- Home: product preview (legendary panels) ---------------- */
+.product-preview-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: clamp(1rem, 2.8vw, 1.5rem);
+}
+
+.model-panel {
+  min-height: clamp(340px, 52svh, 520px);
+}
+
+.model-panel img {
+  filter: saturate(0.96) contrast(1.05) brightness(0.94);
+}
+
+.model-panel::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(72% 50% at 0% 0%, rgba(207, 244, 255, 0.14), transparent 55%),
+    linear-gradient(180deg, transparent 30%, rgba(2, 6, 10, 0.92) 100%);
+}
+
+/* product panels keep clean frozen frames; icicles are reserved for nav, hero, and footer */
+.model-panel-content {
+  position: absolute;
+  left: clamp(1rem, 3vw, 2rem);
+  right: clamp(1rem, 3vw, 2rem);
+  bottom: clamp(1rem, 3vw, 2rem);
+  z-index: 3;
+}
+
+.model-panel-content span {
+  color: var(--ice-bright);
+  font-family: var(--font-label);
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.model-panel-content h3 {
+  margin-top: 0.25rem;
+}
+
+.model-panel-content p {
+  margin: 0.4rem 0 1.1rem;
+  color: var(--white);
+  font-family: var(--font-label);
+  font-weight: 600;
+  font-size: 1.15rem;
+  text-transform: uppercase;
+}
+
+/* ---------------- Products: model showcases ---------------- */
+.models-section {
+  background:
+    linear-gradient(180deg, rgba(3, 8, 15, 0.8), rgba(2, 6, 11, 0.85)),
+    radial-gradient(90% 60% at 50% 120%, rgba(167, 25, 47, 0.1), transparent 60%),
+    var(--ice-bg) left 70% / cover no-repeat;
+}
+
+.product-showcase {
+  display: grid;
+  grid-template-columns: minmax(0, 1.18fr) minmax(320px, 0.82fr);
+  gap: clamp(1rem, 3vw, 2rem);
+  align-items: stretch;
+  margin-top: clamp(2.5rem, 5vw, 4.5rem);
+}
+
+.product-showcase.reverse {
+  grid-template-columns: minmax(320px, 0.82fr) minmax(0, 1.18fr);
+}
+
+.product-showcase.reverse .product-image-slab {
+  order: 2;
+}
+
+.product-image-slab {
+  min-height: clamp(440px, 54vw, 680px);
+}
+
+.product-image-slab::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(72% 55% at 0% 0%, rgba(207, 244, 255, 0.14), transparent 55%),
+    radial-gradient(60% 50% at 100% 100%, rgba(105, 210, 255, 0.1), transparent 55%);
+}
+
+.product-detail-slab,
+.contact-form,
+.company-panel,
+.cta-slab {
+  position: relative;
+  background: linear-gradient(180deg, rgba(18, 38, 60, 0.5), rgba(7, 17, 28, 0.62));
+  border: 1px solid var(--hairline);
+  border-top-color: var(--frost-edge);
+  box-shadow: inset 0 1px 0 rgba(245, 251, 255, 0.1), var(--panel-shadow);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+
+.product-detail-slab {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(1.5rem, 4vw, 3rem);
+}
+
+.product-detail-slab h3 {
+  margin-bottom: 0.7rem;
+}
+
+.product-detail-slab > p {
+  margin: 0.8rem 0 0;
+}
+
+.price-line {
+  color: var(--ice-pale);
+  font-family: var(--font-display);
+  font-size: 2.1rem;
+  font-weight: 600;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.model-spec-list {
+  display: grid;
+  gap: 1px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin: 1.5rem 0 0;
+  background: var(--hairline);
+  border: 1px solid var(--hairline);
+  border-top-color: var(--frost-edge);
+}
+
+.model-spec-list div {
+  min-height: 96px;
+  padding: 0.95rem;
+  background: linear-gradient(180deg, rgba(14, 39, 66, 0.5), rgba(7, 17, 28, 0.6));
+}
+
+.model-spec-list dt {
+  color: rgba(207, 244, 255, 0.72);
+  font-family: var(--font-label);
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.model-spec-list dd {
+  margin: 0.3rem 0 0;
+  color: var(--white);
+  font-family: var(--font-display);
+  font-size: 2.4rem;
+  font-weight: 600;
+  line-height: 0.95;
+}
+
+/* blueprint-inspired power callouts */
+.tech-callouts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
+  margin: 1px 0 0;
+  background: var(--hairline);
+  border: 1px solid var(--hairline);
+  border-top: 0;
+}
+
+.tech-callouts div {
+  position: relative;
+  padding: 0.9rem;
+  background: linear-gradient(180deg, rgba(11, 28, 46, 0.7), rgba(5, 12, 20, 0.7));
+}
+
+.tech-callouts dt {
+  color: var(--ice-bright);
+  font-family: var(--font-label);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.tech-callouts dd {
+  margin: 0.25rem 0 0;
+  color: var(--white);
+  font-family: var(--font-display);
+  font-size: 1.85rem;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.product-detail-slab .features-line {
+  color: rgba(238, 248, 255, 0.78);
+  font-size: 0.98rem;
+}
+
+/* ---------------- CTA ---------------- */
+.final-cta {
+  padding-block: clamp(4rem, 8vw, 7rem);
+  background:
+    linear-gradient(180deg, rgba(4, 10, 18, 0.6), rgba(2, 7, 12, 0.66)),
+    var(--ice-bg) center 80% / cover no-repeat;
+}
+
+.cta-slab {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  padding: clamp(1.7rem, 4vw, 3rem);
+}
+
+.cta-slab h2 {
+  max-width: 760px;
+}
+
+.cta-slab p:not(.eyebrow) {
+  max-width: 42rem;
+  margin-bottom: 0;
+}
+
+/* ---------------- Contact ---------------- */
+.contact-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr);
+  gap: clamp(1rem, 3vw, 1.6rem);
+  align-items: start;
+}
+
+.contact-form,
+.company-panel {
+  padding: clamp(1.4rem, 4vw, 2.6rem);
+}
+
+.form-heading {
+  margin-bottom: 1.7rem;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+label {
+  display: grid;
+  gap: 0.4rem;
+}
+
+label span {
+  color: var(--ice-pale);
+  font-family: var(--font-label);
+  font-size: 0.92rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.full-field {
+  grid-column: 1 / -1;
+}
+
+input,
+textarea {
+  width: 100%;
+  border: 1px solid rgba(105, 210, 255, 0.28);
+  border-radius: 0;
+  background: rgba(2, 6, 10, 0.72);
+  color: var(--white);
+  padding: 0.9rem 0.95rem;
+  outline: none;
+  transition: border-color 160ms ease, box-shadow 160ms ease;
+}
+
+textarea {
+  resize: vertical;
+}
+
+input:focus,
+textarea:focus {
+  border-color: var(--ice-bright);
+  box-shadow: 0 0 0 2px rgba(105, 210, 255, 0.16);
+}
+
+.contact-form .ice-button {
+  margin-top: 1.2rem;
+}
+
+.form-status {
+  min-height: 1.6rem;
+  margin: 0.9rem 0 0;
+  color: var(--ice-pale);
+}
+
+.company-panel h2 {
+  font-size: 2.9rem;
+}
+
+.company-panel address,
+.company-panel p:not(.eyebrow) {
+  color: rgba(238, 248, 255, 0.8);
+}
+
+.contact-image {
+  aspect-ratio: 775 / 572;
+  margin-top: 1.6rem;
+}
+
+/* ---------------- Footer ---------------- */
+.site-footer {
+  position: relative;
+  isolation: isolate;
+  padding: 3.5rem 0 3rem;
+  background: #02050a;
+  border-top: 1px solid rgba(105, 210, 255, 0.32);
+  box-shadow: inset 0 2px 0 -1px rgba(207, 244, 255, 0.22), inset 0 14px 26px -14px rgba(8, 21, 35, 0.9);
+}
+
+.site-footer::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50px;
+  z-index: 0;
+  background: var(--icicles) repeat-x top center;
+  background-size: auto 100%;
+  opacity: 0.6;
+  filter: drop-shadow(0 3px 3px rgba(0, 0, 0, 0.4));
+  pointer-events: none;
+}
+
+.site-footer .section-shell {
+  position: relative;
+  z-index: 1;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: minmax(120px, 180px) minmax(160px, 0.7fr) minmax(240px, 1fr) auto;
+  gap: clamp(1.2rem, 3vw, 2rem);
+  align-items: center;
+}
+
+.footer-brand img {
+  width: min(180px, 48vw);
+}
+
+.site-footer nav {
+  display: grid;
+  gap: 0.4rem;
+}
+
+.site-footer a {
+  color: rgba(238, 248, 255, 0.78);
+  font-family: var(--font-label);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.site-footer a:hover,
+.site-footer a:focus-visible {
+  color: var(--ice-bright);
+}
+
+.site-footer p {
+  margin: 0;
+  color: rgba(238, 248, 255, 0.62);
+  font-size: 0.92rem;
+}
+
+.copyright {
+  text-align: right;
+}
+
+/* ---------------- Responsive ---------------- */
+@media (max-width: 1180px) {
+  h1 {
+    font-size: 3.9rem;
+  }
+
+  h2 {
+    font-size: 3rem;
+  }
+
+  h3 {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 980px) {
+  :root {
+    --header-height: 70px;
+  }
+
+  .hero-split {
+    align-items: stretch;
+  }
+
+  .hero-grid,
+  .split-layout,
+  .product-preview-grid,
+  .product-showcase,
+  .product-showcase.reverse,
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-product {
+    order: -1;
+    min-height: clamp(200px, 30vh, 300px);
+  }
+
+  .product-showcase.reverse .product-image-slab {
+    order: 0;
+  }
+
+  .feature-row,
+  .feature-row.reverse {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .feature-row.reverse .feature-media {
+    order: 0;
+  }
+
+  .equipment-strip,
+  .model-spec-list {
+    grid-template-columns: 1fr;
+  }
+
+  .product-image-slab {
+    min-height: 400px;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .copyright {
+    text-align: left;
+  }
+}
+
+@media (max-width: 720px) {
+  body.nav-open {
+    overflow: hidden;
+  }
+
+  .site-header {
+    padding-inline: 1rem;
+  }
+
+  .nav-toggle {
+    display: inline-block;
+  }
+
+  .site-nav {
+    position: fixed;
+    top: calc(var(--header-height) + 10px);
+    left: 0;
+    right: 0;
+    z-index: 110;
+    display: grid;
+    gap: 0;
+    padding: 1rem;
+    transform: translateY(-120%);
+    opacity: 0;
+    pointer-events: none;
+    background:
+      linear-gradient(180deg, #03080e 0 18px, rgba(3, 8, 14, 0.99) 18px 100%),
+      var(--ice-bg) center 24% / cover;
+    border-bottom: 1px solid var(--frost-edge);
+    box-shadow: 0 28px 60px rgba(0, 0, 0, 0.72);
+    transition: transform 180ms ease, opacity 180ms ease;
+  }
+
+  .site-nav::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: -12px;
+    height: 12px;
+    background: #03080e;
+    pointer-events: none;
+  }
+
+  body.nav-open .site-nav {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .site-nav a {
+    min-height: 52px;
+    border-bottom: 1px solid rgba(105, 210, 255, 0.14);
+  }
+
+  .hero {
+    min-height: 100svh;
+    padding-top: calc(var(--header-height) + 2.5rem);
+  }
+
+  .hero-media::after {
+    background:
+      linear-gradient(90deg, rgba(2, 6, 10, 0.92), rgba(2, 6, 10, 0.45) 58%, rgba(2, 6, 10, 0.1) 82%),
+      linear-gradient(180deg, rgba(2, 6, 10, 0.2), transparent 30%, rgba(2, 6, 10, 0.92));
+  }
+
+  h1 {
+    font-size: 3.2rem;
+  }
+
+  h2,
+  .cta-slab h2,
+  .company-panel h2 {
+    font-size: 2.6rem;
+  }
+
+  h3,
+  .feature-text h3 {
+    font-size: 1.9rem;
+  }
+
+  .hero-kicker {
+    font-size: 1.15rem;
+  }
+
+  .hero-copy {
+    font-size: 1rem;
+  }
+
+  .action-row,
+  .cta-slab {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .ice-button,
+  .ice-link {
+    width: 100%;
+  }
+
+  .form-grid,
+  .footer-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .section-band {
+    padding-block: clamp(3.8rem, 13vw, 5.4rem) clamp(3.4rem, 12vw, 5rem);
+  }
+}
+
+@media (max-width: 440px) {
+  .section-shell {
+    width: min(calc(100% - 1rem), var(--max-width));
+  }
+
+  h1 {
+    font-size: 2.7rem;
+  }
+
+  h2,
+  .cta-slab h2,
+  .company-panel h2 {
+    font-size: 2.2rem;
+  }
+
+  h3,
+  .feature-text h3 {
+    font-size: 1.7rem;
+  }
+
+  .product-image-slab {
+    min-height: 320px;
+  }
+
+  .brand-mark {
+    width: 156px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
