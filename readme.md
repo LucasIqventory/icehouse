@@ -131,3 +131,22 @@ Potential integration with Crescent Moon Vans ecosystem:
 * Shared lead management
 * Shared hosting / infrastructure
 * Shared analytics
+
+---
+
+# Firebase Hosting
+
+This site is configured to deploy as a static Firebase Hosting site directly from the repository root.
+
+Setup:
+
+1. Install the Firebase CLI: `npm install -g firebase-tools`
+2. Log in: `firebase login`
+3. Attach the repo to a Firebase project: `firebase use --add`
+4. Deploy Hosting: `firebase deploy --only hosting`
+
+Notes:
+
+* Hosting serves the repository root as the public directory.
+* Markdown files and dotfiles are excluded from deploys.
+* Static assets receive long cache headers; CSS and JS receive short cache headers.

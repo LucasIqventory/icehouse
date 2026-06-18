@@ -29,3 +29,28 @@ if (contactForm) {
     contactForm.reset();
   });
 }
+
+const scrollTopButton = document.querySelector('[data-scroll-top]');
+
+if (scrollTopButton) {
+  const mobileQuery = window.matchMedia('(max-width: 720px)');
+  const reduceMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  const updateScrollTopButton = () => {
+    const shouldShow = mobileQuery.matches && window.scrollY > 160;
+    scrollTopButton.classList.toggle('is-visible', shouldShow);
+    scrollTopButton.setAttribute('aria-hidden', String(!shouldShow));
+    scrollTopButton.tabIndex = shouldShow ? 0 : -1;
+  };
+
+  scrollTopButton.addEventListener('click', () => {
+    window.scrollTo({
+      top: 0,
+      behavior: reduceMotionQuery.matches ? 'auto' : 'smooth',
+    });
+  });
+
+  window.addEventListener('scroll', updateScrollTopButton, { passive: true });
+  window.addEventListener('resize', updateScrollTopButton);
+  updateScrollTopButton();
+}

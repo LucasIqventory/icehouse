@@ -12,15 +12,15 @@
     <link rel="manifest" href="site.webmanifest">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Teko:wght@500;600;700&family=Oxanium:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400..700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=IBM+Plex+Mono:wght@400;500&family=Caveat:wght@500;600&family=Teko:wght@500;600;700&family=Oxanium:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
   </head>
-  <body>
+  <body class="home-page">
     <a class="skip-link" href="#main">Skip to content</a>
 
     <header class="site-header" data-header>
       <a class="brand-mark" href="index.html" aria-label="Ice House Tailgating home">
-        <img src="IceHouselogos/White%20Tag%20-%20Ice%20House.png" alt="Ice House Tailgating">
+        <img src="IceHouselogos/Black%20Tag%20-%20Ice%20House.png" alt="Ice House Tailgating">
       </a>
       <button class="nav-toggle" type="button" aria-label="Open navigation" aria-expanded="false" data-nav-toggle>
         <span></span>
@@ -92,7 +92,7 @@
                 <img src="media/tv.avif" alt="Mounted smart TV and built-in sound system inside an Ice House trailer">
               </figure>
               <div class="feature-text">
-                <p class="feature-index">02 — Entertainment</p>
+                <p class="feature-index">02</p>
                 <h3>Entertainment</h3>
                 <p>Blue light from the mounted smart TV washes across frozen steel. A built-in sound system, electric cooler, and portable propane grill keep the party going all day long.</p>
                 <ul class="feature-list">
@@ -108,7 +108,7 @@
                 <img src="media/icehouse.avif" alt="Ice House flagship tailgating trailer">
               </figure>
               <div class="feature-text">
-                <p class="feature-index">03 — Off-Grid Power</p>
+                <p class="feature-index">03</p>
                 <h3>Off-Grid Power</h3>
                 <p>Leave the generator at home. A lithium battery bank and pure inverter system run your entire setup — quiet, clean, and completely off-grid.</p>
                 <ul class="feature-list">
@@ -124,7 +124,7 @@
                 <img src="media/cooler.avif" alt="Electric cooler and finished interior inside an Ice House trailer">
               </figure>
               <div class="feature-text">
-                <p class="feature-index">04 — Comfort</p>
+                <p class="feature-index">04</p>
                 <h3>Comfort</h3>
                 <p>A warm, finished interior set against the cold — built-in shelves, counter space, comfortable seating, and climate control that hold the line on game day.</p>
                 <ul class="feature-list">
@@ -142,7 +142,7 @@
       <section class="section-band frost-band product-preview-section">
         <div class="section-shell">
           <div class="section-heading narrow-heading">
-            <p class="eyebrow">Product Preview</p>
+            <p class="eyebrow">Choose Your Build</p>
             <h2>PRODUCT PREVIEW</h2>
           </div>
           <div class="product-preview-grid">
@@ -169,13 +169,34 @@
       </section>
 
       <section class="section-band final-cta">
-        <div class="section-shell cta-slab">
-          <div>
-            <p class="eyebrow">Game Day Awaits</p>
-            <h2>READY FOR GAME DAY?</h2>
-            <p>Contact us to learn more about available models, customization options, and ordering.</p>
+        <div class="section-shell cta-stack">
+          <div class="cta-slab">
+            <div>
+              <p class="eyebrow">Game Day Awaits</p>
+              <h2>READY FOR GAME DAY?</h2>
+            </div>
+            <div class="cta-actions">
+              <div class="cta-action-card">
+                <p class="eyebrow">Contact Ice House</p>
+                <p class="cta-action-copy">Contact us to talk through trailer models, customization options, and next steps.</p>
+                <a class="ice-button primary" href="contact.html">CONTACT ICE HOUSE</a>
+              </div>
+            </div>
           </div>
-          <a class="ice-button primary" href="contact.html">CONTACT ICE HOUSE</a>
+
+          <div class="cta-slab cta-slab--cmv">
+            <div class="cmv-cta-copy">
+              <p class="cmv-eyebrow">Sister Brand</p>
+              <h2>More interested in custom and prebuilt vans?</h2>
+              <p class="cmv-lede">Crescent Moon Vans builds custom campervans, mobile business builds, shell builds, and ready-to-go floorplans.</p>
+              <p class="cmv-hand">do whatever you want, wherever you want</p>
+            </div>
+            <div class="cmv-cta-card">
+              <p class="cmv-card-brand">Crescent Moon Vans</p>
+              <p class="cmv-card-copy">Explore custom builds, prebuilt van options, and the full Crescent Moon Vans process.</p>
+              <a class="cmv-button" href="https://crescent-moon-vans.web.app/" target="_blank" rel="noopener noreferrer">Visit Crescent Moon Vans</a>
+            </div>
+          </div>
         </div>
       </section>
     </main>
@@ -194,6 +215,8 @@
         <p class="copyright">Copyright 2026 Ice House Tailgating. All rights reserved.</p>
       </div>
     </footer>
+
+    <button class="scroll-top-button" type="button" aria-label="Back to top" aria-hidden="true" tabindex="-1" data-scroll-top></button>
 
     <script src="site.js"></script>
   </body>
