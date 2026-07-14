@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": ".",
+    "public": "dist",
     "ignore": [
       "firebase.json",
       ".firebaserc",
@@ -26,6 +26,12 @@
             "value": "public, max-age=3600"
           }
         ]
+      }
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
       }
     ]
   }
