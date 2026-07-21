@@ -1650,6 +1650,7 @@ label span {
 }
 
 input,
+select,
 textarea {
   width: 100%;
   border: 1px solid rgba(105, 210, 255, 0.28);
@@ -1665,11 +1666,42 @@ textarea {
   min-height: 108px;
 }
 
+select {
+  appearance: none;
+  color-scheme: dark;
+  background-image:
+    linear-gradient(45deg, transparent 50%, var(--ice-bright) 50%),
+    linear-gradient(135deg, var(--ice-bright) 50%, transparent 50%);
+  background-position:
+    calc(100% - 1.05rem) calc(50% - 0.18rem),
+    calc(100% - 0.72rem) calc(50% - 0.18rem);
+  background-repeat: no-repeat;
+  background-size: 0.4rem 0.4rem, 0.4rem 0.4rem;
+  padding-right: 2.2rem;
+}
+
+select option {
+  background: #0b5f91;
+  color: var(--white);
+}
+
+select option[value=""] {
+  background: #0b5f91;
+  color: var(--white);
+}
+
+select option:hover,
+select option:checked {
+  background: #07527e;
+  color: var(--white);
+}
+
 textarea {
   resize: vertical;
 }
 
 input:focus,
+select:focus,
 textarea:focus {
   border-color: var(--ice-bright);
   box-shadow: 0 0 0 2px rgba(105, 210, 255, 0.16);

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { NavLink, Outlet, useLocation } from 'react-router-dom';
+import Seo from './Seo.jsx';
 
 const navigation = [
   { to: '/', label: 'Home', end: true },
@@ -62,10 +63,11 @@ export default function SiteLayout() {
 
   return (
     <>
+      <Seo path={location.pathname} />
       <a className="skip-link" href="#main">Skip to content</a>
       <header className="site-header">
         <NavLink className="brand-mark" to="/" end aria-label="Ice House Tailgating home" onClick={closeNavigation}>
-          <img src="/IceHouselogos/Black%20Tag%20-%20Ice%20House.png" alt="Ice House Tailgating" />
+          <img src="/IceHouselogos/Black%20Tag%20-%20Ice%20House.png" alt="Ice House Tailgating" decoding="async" />
         </NavLink>
         <button
           className="nav-toggle"
@@ -87,7 +89,7 @@ export default function SiteLayout() {
       <footer className="site-footer">
         <div className="section-shell footer-grid">
           <NavLink className="footer-brand" to="/" end aria-label="Ice House Tailgating home">
-            <img src="/IceHouselogos/White%20Tag%20-%20Ice%20House.png" alt="Ice House Tailgating" />
+            <img src="/IceHouselogos/White%20Tag%20-%20Ice%20House.png" alt="Ice House Tailgating" loading="lazy" decoding="async" />
           </NavLink>
           <nav aria-label="Footer navigation">
             <NavigationLinks onNavigate={closeNavigation} />

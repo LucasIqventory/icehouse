@@ -13,7 +13,7 @@ function SisterBrandCta() {
       <div className="cmv-cta-card">
         <p className="cmv-card-brand">Crescent Moon Vans</p>
         <p className="cmv-card-copy">Explore custom builds, prebuilt van options, and the full Crescent Moon Vans process.</p>
-        <a className="cmv-button" href="https://crescent-moon-vans.web.app/" target="_blank" rel="noopener noreferrer">Visit Crescent Moon Vans</a>
+        <a className="cmv-button" href="https://crescentmoonvans.com/" target="_blank" rel="noopener noreferrer">Visit Crescent Moon Vans</a>
       </div>
     </div>
   );
@@ -39,7 +39,7 @@ export default function HomePage() {
             </div>
           </div>
           <figure className="hero-product">
-            <img src="/media/tailgatehero.avif" alt="Ice House off-grid tailgating trailer at a game day tailgate" />
+            <img src="/optimized/media/tailgatehero.avif" alt="Ice House off-grid tailgating trailer at a game day tailgate" decoding="async" fetchPriority="high" />
           </figure>
         </div>
       </section>
@@ -47,7 +47,7 @@ export default function HomePage() {
       <section className="section-band frost-band">
         <div className="section-shell split-layout">
           <figure className="angled-image feature-photo-large">
-            <img src="/media/tailgatehero2.avif" alt="Ice House trailer set up for tailgating on game day" />
+            <img src="/optimized/media/tailgatehero2.avif" alt="Ice House trailer set up for tailgating on game day" loading="lazy" decoding="async" />
           </figure>
           <div className="copy-block">
             <p className="eyebrow">Section 01 - The Fortress</p>
@@ -68,15 +68,15 @@ export default function HomePage() {
           <div className="section-heading"><p className="eyebrow">Inside The Ice House</p><h2>KEY FEATURES</h2></div>
           <div className="feature-stack">
             <article className="feature-row feat-entertainment">
-              <figure className="feature-media"><img src="/media/tv.avif" alt="Mounted smart TV and built-in sound system inside an Ice House trailer" /></figure>
+              <figure className="feature-media"><img src="/optimized/media/tv.avif" alt="Mounted smart TV and built-in sound system inside an Ice House trailer" loading="lazy" decoding="async" /></figure>
               <div className="feature-text"><p className="feature-index">02</p><h3>Entertainment</h3><p>Blue light from the mounted smart TV washes across frozen steel. A built-in sound system, electric cooler, and portable propane grill keep the party going all day long.</p><ul className="feature-list"><li>Mounted Smart TV</li><li>Built-In Sound System</li><li>Electric Cooler</li><li>Portable Grill</li></ul></div>
             </article>
             <article className="feature-row reverse feat-offgrid">
-              <figure className="feature-media"><img src="/media/icehouse.avif" alt="Ice House flagship tailgating trailer" /></figure>
+              <figure className="feature-media"><img src="/optimized/media/icehouse.avif" alt="Ice House flagship tailgating trailer" loading="lazy" decoding="async" /></figure>
               <div className="feature-text"><p className="feature-index">03</p><h3>Off-Grid Power</h3><p>Leave the generator at home. A lithium battery bank and pure inverter system run your entire setup - quiet, clean, and completely off-grid.</p><ul className="feature-list"><li>Lithium Battery Power</li><li>Pure Inverter Systems</li><li>No Generator Required</li><li>Quiet Operation</li></ul></div>
             </article>
             <article className="feature-row feat-comfort">
-              <figure className="feature-media"><img src="/media/cooler.avif" alt="Electric cooler and finished interior inside an Ice House trailer" /></figure>
+              <figure className="feature-media"><img src="/optimized/media/cooler.avif" alt="Electric cooler and finished interior inside an Ice House trailer" loading="lazy" decoding="async" /></figure>
               <div className="feature-text"><p className="feature-index">04</p><h3>Comfort</h3><p>A warm, finished interior set against the cold - built-in shelves, counter space, comfortable seating, and climate control that hold the line on game day.</p><ul className="feature-list"><li>Integrated Storage</li><li>Counter Space</li><li>Comfortable Seating</li><li>Climate-Controlled Interior</li></ul></div>
             </article>
           </div>
@@ -87,8 +87,8 @@ export default function HomePage() {
         <div className="section-shell">
           <div className="section-heading narrow-heading"><p className="eyebrow">Choose Your Build</p><h2>PRODUCT PREVIEW</h2></div>
           <div className="product-preview-grid">
-            <article className="model-panel large-model"><img src="/media/icehouse.avif" alt="Ice House flagship trailer" /><div className="model-panel-content"><span>ICE HOUSE</span><h3>Flagship Model</h3><p>Starting at $19,500</p><Link className="ice-link" to="/products#ice-house">EXPLORE MODEL</Link></div></article>
-            <article className="model-panel compact-model"><img src="/media/icechest.avif" alt="Ice Chest compact trailer" /><div className="model-panel-content"><span>ICE CHEST</span><h3>Compact Model</h3><p>Starting at $12,500</p><Link className="ice-link" to="/products#ice-chest">EXPLORE MODEL</Link></div></article>
+            <article className="model-panel large-model"><img src="/optimized/media/icehouse.avif" alt="Ice House flagship trailer" loading="lazy" decoding="async" /><div className="model-panel-content"><span>ICE HOUSE</span><h3>Flagship Model</h3><p>Starting at $19,500</p><Link className="ice-link" to="/products#ice-house">EXPLORE MODEL</Link></div></article>
+            <article className="model-panel compact-model"><img src="/optimized/media/icechest.avif" alt="Ice Chest compact trailer" loading="lazy" decoding="async" /><div className="model-panel-content"><span>ICE CHEST</span><h3>Compact Model</h3><p>Starting at $12,500</p><Link className="ice-link" to="/products#ice-chest">EXPLORE MODEL</Link></div></article>
           </div>
         </div>
       </section>
