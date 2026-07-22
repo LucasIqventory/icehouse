@@ -3,7 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 import SiteLayout from './components/SiteLayout.jsx';
 import HomePage from './pages/HomePage.jsx';
 import ProductsPage from './pages/ProductsPage.jsx';
-import ContactPage from './pages/ContactPage.jsx';
+import ContactPage from './pages/ContactPage.tsx';
 
 function PlaceholderPage({ title }) {
   return createElement(
