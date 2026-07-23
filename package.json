@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "typecheck": "tsc --noEmit",
     "preview": "vite preview",
     "deploy": "npm run build && firebase deploy --only hosting",
     "optimize:site-images": "node scripts/optimize-site-images.mjs && node scripts/use-optimized-site-images.mjs"
@@ -16,8 +17,11 @@
     "react-router-dom": "^7.8.2"
   },
   "devDependencies": {
+    "@types/react": "19.1.17",
+    "@types/react-dom": "19.1.11",
     "@vitejs/plugin-react": "^5.0.2",
     "sharp": "^0.35.3",
+    "typescript": "5.9.3",
     "vite": "^7.1.3"
   }
 }
