@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { icehouseProducts } from '../data/products';
 
 const siteUrl = 'https://icehousetailgating.com';
-const defaultImage = `${siteUrl}/optimized/media/exteriorhero3.png`;
+const defaultImage = `${siteUrl}/optimized/media/exteriorhero3.avif`;
 
 const pageMetadata = {
   '/': {

@@ -7,6 +7,7 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
+    "deploy": "npm run build && firebase deploy --only hosting",
     "optimize:site-images": "node scripts/optimize-site-images.mjs && node scripts/use-optimized-site-images.mjs"
   },
   "dependencies": {

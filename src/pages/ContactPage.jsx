@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { icehouseProducts } from '../data/products';
 
+const apiBaseUrl = (import.meta.env.VITE_API_BASE_URL || '').replace(/\/$/, '');
+
 const hearOptions = [
   'Google or online search',
   'Social media',
@@ -23,10 +25,41 @@ export default function ContactPage() {
     document.title = 'Contact | Ice House Tailgating';
   }, []);
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
-    setStatus('Message staged for the mockup.');
-    event.currentTarget.reset();
+    const form = event.currentTarget;
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
+
+    const fields = new FormData(form);
+    setStatus('Sending message...');
+
+    try {
+      const response = await fetch(`${apiBaseUrl}/cmv-icehouse/submitContact/`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: fields.get('name'),
+          email: fields.get('email'),
+          phone: fields.get('phone'),
+          type: fields.get('type'),
+          message: fields.get('message'),
+          'heard-from': fields.get('heard-from'),
+          source: 'icehouse'
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error('Message could not be sent right now.');
+      }
+
+      form.reset();
+      setStatus('Message sent. We will be in touch.');
+    } catch (error) {
+      setStatus(error instanceof Error ? error.message : 'Message could not be sent right now.');
+    }
   }
 
   return (

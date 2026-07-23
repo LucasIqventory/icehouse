@@ -30,7 +30,7 @@ export default function HomePage() {
         <div className="section-shell hero-grid">
           <div className="hero-content">
             <p className="eyebrow">Off-Grid Game Day Fortress</p>
-            <h1>ICE HOUSE</h1>
+            <h1>ICE HOUSE TAILGATING</h1>
             <p className="hero-kicker">Off-Grid Game Day.</p>
             <p className="hero-copy">Featuring fully off-grid electrical systems, climate-controlled comfort, and everything needed to elevate the tailgate experience.</p>
             <div className="action-row">
@@ -39,7 +39,16 @@ export default function HomePage() {
             </div>
           </div>
           <figure className="hero-product">
-            <img src="/optimized/media/tailgatehero.avif" alt="Ice House off-grid tailgating trailer at a game day tailgate" decoding="async" fetchPriority="high" />
+            <video
+              autoPlay
+              loop
+              muted
+              playsInline
+              preload="metadata"
+              aria-label="Ice House off-grid tailgating trailer on game day"
+            >
+              <source src="/optimized/media/hero-gameday.mp4" type="video/mp4" />
+            </video>
           </figure>
         </div>
       </section>
