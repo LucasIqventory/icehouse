@@ -1719,14 +1719,43 @@ textarea:focus {
   box-shadow: 0 0 0 2px rgba(105, 210, 255, 0.16);
 }
 
+input[aria-invalid="true"],
+select[aria-invalid="true"],
+textarea[aria-invalid="true"] {
+  border-color: rgba(255, 139, 157, 0.78);
+  box-shadow: 0 0 0 2px rgba(255, 139, 157, 0.16);
+}
+
 .contact-form .ice-button {
   margin-top: 0;
+}
+
+.contact-form .ice-button:disabled {
+  opacity: 0.72;
+  cursor: wait;
+}
+
+.field-error-message {
+  margin: -0.15rem 0 0;
+  color: #ffb6c2;
+  font-family: var(--font-label);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
 }
 
 .form-status {
   min-height: 1.35rem;
   margin: 0;
   color: var(--ice-pale);
+}
+
+.form-status.is-success {
+  color: #c8f8d9;
+}
+
+.form-status.is-error {
+  color: #ffccd5;
 }
 
 .company-panel h2 {
